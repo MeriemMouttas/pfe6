@@ -1,0 +1,344 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Batis</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	    <link  href="{% static 'mySite/css/bootstrap.min.css'%}" rel="stylesheet">
+
+	<!-- Slick -->
+	    <link   href="{% static 'mySite/css/slick.css'%}" rel="stylesheet">
+		<link    href="{% static 'mySite/css/slick-theme.css'%}" rel="stylesheet">
+
+
+	<!-- nouislider -->
+	    <link  href="{% static 'mySite/css/nouislider.min.css'%}" rel="stylesheet">
+
+	<!-- Font Awesome Icon -->
+	    <link href="{% static 'mySite/css/font-awesome.min.css'%}" rel="stylesheet">
+	<!-- Custom stlylesheet -->
+	    <link href="{% static 'mySite/css/style.css'%}" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+	<!-- HEADER -->
+	<header>
+		<!-- top Header -->
+		<div id="top-header">
+			<div class="container">
+				<div class="pull-left">
+					<span>Welcome to Algerie_batisConnect!</span>
+				</div>
+				<div class="pull-right">
+					<ul class="header-top-links">
+						<li class="dropdown default-dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">FR <i class="fa fa-caret-down"></i></a>
+							<ul class="custom-menu">
+								<li><a href="#">English (ENG)</a></li>
+								<li><a href="#">Russian (Ru)</a></li>
+								<li><a href="#">French (FR)</a></li>
+								<li><a href="#">Spanish (Es)</a></li>
+							</ul>
+						</li>
+						<li class="dropdown default-dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">USD <i class="fa fa-caret-down"></i></a>
+							<ul class="custom-menu">
+								<li><a href="#">USD ($)</a></li>
+								<li><a href="#">EUR (€)</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /top Header -->
+
+		<!-- header -->
+		<div id="header">
+			<div class="container">
+				<div class="pull-left">
+					<!-- Logo -->
+					<div class="header-logo">
+						<a  href="#">
+							<img src="{% static 'mySite/img/logo.png'%}"  style="height: 100px;width:350px" alt="">
+						</a>
+					</div>
+					<!-- /Logo -->
+
+					<!-- Search -->
+					<div class="header-search">
+						<form action="/search/" method="post">
+                        {% csrf_token %}
+                        <input id="query" name="query" class="input search-input" type="text" placeholder="Enter votre produit">
+                        <select name="catid"  class="input search-categories">
+                            <option value="0">toute les  Categories </option>
+							{% for cat in cat %}
+								<option value="{{cat.id}}">{{cat.titre}}</option>
+							
+							{% endfor %}</select>
+							<button class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- /Search -->
+				</div>
+				<div class="pull-right">
+					<ul class="header-btns">
+						<!-- Account -->
+						<li class="header-account dropdown default-dropdown">
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+								<div class="header-btns-icon">
+									<i class="fa fa-user-o"></i>
+								</div>
+								<strong class="text-uppercase">Mon compte <i class="fa fa-caret-down"></i></strong>
+							</div>
+							<a href="#" class="text-uppercase">connection</a>/<a href="#" class="text-uppercase">inscription</a>
+							<ul class="custom-menu">
+								<li><a href="#"><i class="fa fa-user-o"></i> Mon profil</a></li>
+								<li><a href="#"><i class="fa fa-heart-o"></i> se deconnecte</a></li>
+							</ul>
+						</li>
+						<!-- /Account -->
+
+
+						<!-- Mobile nav toggle-->
+						<li class="nav-toggle">
+							<button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+						</li>
+						<!-- / Mobile nav toggle -->
+					</ul>
+				</div>
+			</div>
+			<!-- header -->
+		</div>
+		<!-- container -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- NAVIGATION -->
+	<div id="navigation">
+		<!-- container -->
+		<div class="container">
+		
+			
+
+				<!-- menu nav -->
+				<div class="menu-nav">
+					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+					<ul class="menu-list">
+						<li><a href="#">Acceuil</a></li>
+						<li><a href="#">Nos exposants</a></li>
+						<li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Nos Categories <i class="fa fa-caret-down"></i></a>
+							<div class="custom-menu">
+								<div class="row">
+								{% for cat in cat %}
+									<div class="col-md-3">
+										<div class="hidden-sm hidden-xs">
+											<ul class="list-links">
+											<li>
+												<h3 class="list-links-title">{{cat.titre}}</h3></li>
+												{% for souscat in souscat %}
+												 {% if souscat.Categories_id == cat.id%}
+											<li><a href="{% url "lesproduits" cat.id %}">{{souscat.titre}}</a></li>
+										{% endif %}
+										{% endfor %}
+										</ul>
+									
+											<hr>
+										</div>
+									
+									</div>	{% endfor %}
+								</div>
+							</div>
+						</li>
+						<li><a href="#">Actualite</a></li>
+					</ul>
+				</div>
+				<!-- menu nav -->
+		
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /NAVIGATION -->
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Accueil</a></li>
+				<li class="active">Créer un compte</li>
+			</ul>
+		</div>
+	</div>
+  <!-- /.login-logo -->
+<div class="section">
+<div class="text-center col">
+            
+    
+                 <img 
+                src="{% static 'mySite/img/111.jpg'%}"  alt=""
+                class="" style="height: 150px; weight :80px; ">
+               
+               
+            <!-- <hr> -->
+           <br> <br>
+            	<h3 class="title" style="color:#F02C03">Créer un compte</h3></div>
+            <hr>
+            </div>
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+				<div class="row">
+      	
+              	  {% csrf_token %}
+                  <div class="row">
+          {% if messages %}
+         <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+              	    <div class="col-md-6">
+						<div class="billing-details">
+         <div class="section-title">
+								<h3 class="title">Connexion</h3>
+							</div>
+      <form action="/doLogin" method="post" id="demo-form">
+      {% csrf_token %}
+      <div class="form-group">
+            <label required for="">Nom d'utlisateur:</label>
+								<input required class="input" type="text" name="username" placeholder="Entez votre nom d'utlisateur">
+                
+							</div>
+     <div class="form-group">
+     
+              <label required for="">Mot de passe:</label>
+								<input required class="input" type="password" name="password" placeholder="Entez votre mot de passe">
+							</div>
+        <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LeWtqUZAAAAAMO6YmxX5_XWel9hLWrb_iEiff26"></div>
+        </div>
+		<div class="col-12 text-center">
+             <h5><a href="{% url 'password_reset' %}"><i class="fa fa-lock" style="color:black"></i> Mot de passe oublié</a></h5>
+          </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-6">
+        	<center>		<button class="primary-btn">Connectez</button>	 </center><br>
+          </div> 
+		   
+		   </div>  </div>  </div><!-- /.col -->
+           <!-- /.col -->
+           <div class="col-md-6">
+						<div class="billing-details">
+<div class="section-title">
+								<h3 class="title">Inscription</h3>
+							</div>
+              <div class="col-6 text-center">
+              <p>écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!écrit quelque chose !!!!!!!!!</p>
+            </div>
+               <h4> <a href="{% url 'signup_admin' %}"><i class="fa fa-user" style="color:red"></i> Inscription administrateur</a></h4>
+               <h4> <a href="{% url 'signup_client' %}"><i class="fa fa-user" style="color:green"></i> Inscription client</a> </h4> 
+               <h4> <a href="{% url 'signup_fournisseur' %}"> <i class="fa fa-user" style="color:blue"></i> Inscription fournisseur</a></h4>
+          
+          </div><!-- /.col -->
+        </div>
+  
+      </form>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+		<!-- FOOTER -->
+	<footer id="footer" class="section section-grey">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<!-- footer logo -->
+						<div class="footer-logo">
+							<a class="logo" href="#">
+		            <img src="{% static 'mySite/img/logo.png'%}" alt="">
+		          </a>
+						</div>
+						
+
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+
+					
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer widget -->
+						<!-- /footer logo -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">vous trouverez dans notre site :</h3>
+						<ul class="list-links">
+							<li><a href="#">Nos Exposants</a></li>
+							<li><a href="#">Devener exposents </a></li>
+							<li><a href="#">Creer compte entrepreneur </a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /footer widget -->
+<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+				<button> contactez nous </button>
+				</div>
+				</div>
+
+			
+			
+			</div>
+		
+		</div>
+		<!-- /container -->
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+
+	    <script src="{% static 'mySite/js/jquery.min.js'%}"></script>
+		    <script src="{% static 'mySite/js/bootstrap.min.js'%}"></script>
+			    <script src="{% static 'mySite/js/slick.min.js'%}"></script>
+				    <script src="{% static 'mySite/js/nouislider.min.js'%}"></script>
+					    <script src="{% static 'mySite/js/jquery.zoom.min.js'%}"></script>
+						    <script src="{% static 'mySite/js/main.js'%}"></script>
+							 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+						
+
+</body>
+
+</html>

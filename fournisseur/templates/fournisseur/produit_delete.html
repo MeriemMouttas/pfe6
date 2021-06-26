@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png'%}">
+    <title>Algerie_BatisConnect</title>
+    <!-- chartist CSS -->
+    <link href="{% static 'css/pages/ecommerce.css'%}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.min.css'%}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="skin-default fixed-layout">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">ABC</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <!-- Logo icon --><b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                          
+                            <!-- Light Logo icon -->
+                            <img src="{% static 'images/logo-light-icon.png'%}" alt="homepage" class="light-logo" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text --><span>
+                         <!-- dark Logo text --
+                         <!-- Light Logo text -->    
+                         <img src="{% static 'images/logo-light-text.png'%}" class="light-logo" alt="homepage" /></span> </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+            
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- User Profile-->
+                  <div class="user-profile">
+                    <div class="user-pro-body">
+                        <div><img src="{% static 'images/Entrep.png'%}" alt="user-img" class="img-circle"></div>
+                        <div class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle u-dropdown link hide-menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SNon Entreprise <span class="caret"></span></a>
+                            <div class="dropdown-menu animated flipInY">
+                                <!-- text-->
+                                <a href="#" class="dropdown-item"><i class="ti-user"></i>Profil</a>
+                                <!-- text-->
+
+                                <!-- text-->
+                                <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Se déconnecter</a>
+                                <!-- text-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                      
+                        <li class="nav-small-cap">--- PERSONAL</li>
+                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" ti-paint-roller"></i><span class="hide-menu">Produit</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{% url 'produits' %}">Liste de produits</a></li>
+                                <li><a href="{% url 'produitcertifie' %}">produits certifiés </a></li>
+                                <li><a href="{% url 'produitgaranti' %}">produits garanti </a></li>
+                                      
+                                
+                            </ul>
+                        </li>
+                    
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" ti-home"></i><span class="hide-menu">Nom commercial</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{% url 'A_propos' %}">A propos</a></li>
+                              
+                            </ul>
+                        </li>               
+                
+                   
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+          
+ <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h4 class="text-themecolor">Confirmer suppression : </h4>
+                    </div>
+                </div>
+            <div class="row">
+                    <!-- Column -->
+                    <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-12 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-body">
+<form action='.' method='POST'>{% csrf_token %}
+    <h1>voulez vous supprimer se produit  "{{ object.libelle }}"?</h1>
+    <input type='submit' value='oui'class="save btn btn-success" /> 
+    <button class="btn btn-danger " > <a href="{% url 'produits' %}">Non</a></button>
+
+</form>
+</div></div></div></div></div>
+    <script src="{% static 'node_modules/jquery/jquery-3.2.1.min.js'%}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{% static 'node_modules/popper/popper.min.js'%}"></script>
+    <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{% static 'js/perfect-scrollbar.jquery.min.js'%}"></script>
+    <!--Wave Effects -->
+    <script src="{% static 'js/waves.js'%}"></script>
+    <!--Menu sidebar -->
+    <script src="{% static 'js/sidebarmenu.js'%}"></script>
+    <!--stickey kit -->
+    <script src="{% static 'node_modules/sticky-kit-master/dist/sticky-kit.min.js'%}"></script>
+    <script src="{% static 'node_modules/sparkline/jquery.sparkline.min.js'%}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'js/custom.min.js'%}"></script>
+    <script src="{% static 'node_modules/jquery-sparkline/jquery.sparkline.min.js'%}"></script>
+        <!-- ============================================================== -->
+</body>
+
+</html>

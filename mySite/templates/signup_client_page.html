@@ -1,0 +1,388 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Batis</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	    <link  href="{% static 'mySite/css/bootstrap.min.css'%}" rel="stylesheet">
+
+	<!-- Slick -->
+	    <link   href="{% static 'mySite/css/slick.css'%}" rel="stylesheet">
+		<link    href="{% static 'mySite/css/slick-theme.css'%}" rel="stylesheet">
+
+
+	<!-- nouislider -->
+	    <link  href="{% static 'mySite/css/nouislider.min.css'%}" rel="stylesheet">
+
+	<!-- Font Awesome Icon -->
+	    <link href="{% static 'mySite/css/font-awesome.min.css'%}" rel="stylesheet">
+	<!-- Custom stlylesheet -->
+	    <link href="{% static 'mySite/css/style.css'%}" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+	<!-- HEADER -->
+	<header>
+		<!-- top Header -->
+		<div id="top-header">
+			<div class="container">
+				<div class="pull-left">
+					<span>Welcome to Algerie_batisConnect!</span>
+				</div>
+				<div class="pull-right">
+					<ul class="header-top-links">
+						<li class="dropdown default-dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">FR <i class="fa fa-caret-down"></i></a>
+							<ul class="custom-menu">
+								<li><a href="#">English (ENG)</a></li>
+								<li><a href="#">Russian (Ru)</a></li>
+								<li><a href="#">French (FR)</a></li>
+								<li><a href="#">Spanish (Es)</a></li>
+							</ul>
+						</li>
+						<li class="dropdown default-dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">USD <i class="fa fa-caret-down"></i></a>
+							<ul class="custom-menu">
+								<li><a href="#">USD ($)</a></li>
+								<li><a href="#">EUR (€)</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /top Header -->
+
+		<!-- header -->
+		<div id="header">
+			<div class="container">
+				<div class="pull-left">
+					<!-- Logo -->
+					<div class="header-logo">
+						<a  href="#">
+							<img src="{% static 'mySite/img/logo.png'%}"  style="height: 100px;width:350px" alt="">
+						</a>
+					</div>
+					<!-- /Logo -->
+
+					<!-- Search -->
+					<div class="header-search">
+						<form action="/search/" method="post">
+                        {% csrf_token %}
+                        <input id="query" name="query" class="input search-input" type="text" placeholder="Enter votre produit">
+                        <select name="catid"  class="input search-categories">
+                            <option value="0">toute les  Categories </option>
+							{% for cat in cat %}
+								<option value="{{cat.id}}">{{cat.titre}}</option>
+							
+							{% endfor %}</select>
+							<button class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- /Search -->
+				</div>
+				<div class="pull-right">
+					<ul class="header-btns">
+						<!-- Account -->
+						<li class="header-account dropdown default-dropdown">
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+								<div class="header-btns-icon">
+									<i class="fa fa-user-o"></i>
+								</div>
+								<strong class="text-uppercase">Mon compte <i class="fa fa-caret-down"></i></strong>
+							</div>
+							<a href="#" class="text-uppercase">connection</a>/<a href="#" class="text-uppercase">inscription</a>
+							<ul class="custom-menu">
+								<li><a href="#"><i class="fa fa-user-o"></i> Mon profil</a></li>
+								<li><a href="#"><i class="fa fa-heart-o"></i> se deconnecte</a></li>
+							</ul>
+						</li>
+						<!-- /Account -->
+
+
+						<!-- Mobile nav toggle-->
+						<li class="nav-toggle">
+							<button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+						</li>
+						<!-- / Mobile nav toggle -->
+					</ul>
+				</div>
+			</div>
+			<!-- header -->
+		</div>
+		<!-- container -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- NAVIGATION -->
+	<div id="navigation">
+		<!-- container -->
+		<div class="container">
+		
+			
+
+				<!-- menu nav -->
+				<div class="menu-nav">
+					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+					<ul class="menu-list">
+						<li><a href="#">Acceuil</a></li>
+						<li><a href="#">Nos exposants</a></li>
+						<li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Nos Categories <i class="fa fa-caret-down"></i></a>
+							<div class="custom-menu">
+								<div class="row">
+								{% for cat in cat %}
+									<div class="col-md-3">
+										<div class="hidden-sm hidden-xs">
+											<ul class="list-links">
+											<li>
+												<h3 class="list-links-title">{{cat.titre}}</h3></li>
+												{% for souscat in souscat %}
+												 {% if souscat.Categories_id == cat.id%}
+											<li><a href="{% url "lesproduits" cat.id %}">{{souscat.titre}}</a></li>
+										{% endif %}
+										{% endfor %}
+										</ul>
+									
+											<hr>
+										</div>
+									
+									</div>	{% endfor %}
+								</div>
+							</div>
+						</li>
+						<li><a href="#">Actualite</a></li>
+					</ul>
+				</div>
+				<!-- menu nav -->
+		
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /NAVIGATION -->
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Accueil</a></li>
+				<li class="active">Créer un compte</li>
+			</ul>
+		</div>
+	</div>
+  <!-- /.login-logo -->
+<div class="section">
+<div class="text-center col">
+            
+    
+                 <img 
+                src="{% static 'mySite/img/111.jpg'%}"  alt=""
+                class="" style="height: 150px; weight :80px; ">
+               
+               
+            <!-- <hr> -->
+           <br> <br>
+            	<h3 class="title" style="color:#F02C03">Créer un compte</h3></div>
+            <hr>
+            </div>
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+      	<div class="section-title">
+								<h3 class="title">Inscription client</h3>
+							</div>
+              	  {% csrf_token %}
+                  <div class="row">
+          {% if messages %}
+         <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+          <div class="col-md-6">
+						<div class="billing-details">
+            		<form action="/do_client_inscription" method="post" id="checkout-form" class="clearfix">
+						  {% csrf_token %}
+                 
+							<div class="form-group">
+              <label required for="">Nom:</label>
+								<input required class="input" type="text" name="first_name" placeholder="Entez votre nom">
+							</div>
+							 <div class="span6 form-group">
+              <label required for="">Prénom:</label>
+								<input required class="input" type="text" name="last_name" placeholder="Entez votre Prénom">
+							</div>
+						<div class="form-group">
+            <label required for="">Nom d'utlisateur:</label>
+								<input required class="input" type="text" name="username" placeholder="Entez votre nom d'utlisateur">
+                
+							</div>
+              <div class="span6 form-group">
+              <label required for="">Email:</label>
+								<input required class="input" type="email" name="email" placeholder="Entez votre email">
+							</div>
+              	 <div class="span6 form-group">
+              <label required for="">Phone:</label>
+								<input required class="input" type="text" name="phone" placeholder="Entez votre numéro de téléphone">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="billing-details">
+							 <div class="span6 form-group">
+              <label required for="">Adresse:</label>
+								<input required class="input" type="text" name="adresse" placeholder="Entez votre adresse">
+							</div>
+              <div class="span6 form-group">
+              <label required for="">Wilaya:</label>
+								<input required class="input" type="text" name="wilaya" placeholder="Entez votre wilaya">
+							</div>
+					<div class="form-group">
+              <label required for="">Mot de passe:</label>
+								<input required class="input" type="password" name="password" placeholder="Entez votre mot de passe">
+							</div>
+              	<div class="form-group">
+              <label required for="">Confirmez mot de passe:</label>
+								<input required class="input" type="password" name="confirm_password" placeholder="Confirmez votre mot de passe">
+							</div>
+							<!--<div class="form-group">
+            <label required for="">Code:</label>
+								<input required class="input" type="text" name="" placeholder="Entez le code pour etre admin ">
+							</div>-->
+							
+							</div>
+						
+						</div>
+					</div>
+					<center>		<button class="primary-btn">S'inscrire</button>	 </center><br>
+         
+				</form>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+	<footer id="footer" class="section section-grey">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<!-- footer logo -->
+						<div class="footer-logo">
+							<a class="logo" href="#">
+		            <img src="{% static './img/logo.png'%}" alt="">
+		          </a>
+						</div>
+						<!-- /footer logo -->
+
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+
+						<!-- footer social -->
+						<ul class="footer-social">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+						</ul>
+						<!-- /footer social -->
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">My Account</h3>
+						<ul class="list-links">
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">My Wishlist</a></li>
+							<li><a href="#">Compare</a></li>
+							<li><a href="#">Checkout</a></li>
+							<li><a href="#">Login</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<div class="clearfix visible-sm visible-xs"></div>
+
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Customer Service</h3>
+						<ul class="list-links">
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Shiping & Return</a></li>
+							<li><a href="#">Shiping Guide</a></li>
+							<li><a href="#">FAQ</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer subscribe -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Stay Connected</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+						<form>
+							<div class="form-group">
+								<input class="input" placeholder="Enter Email Address">
+							</div>
+							<button class="primary-btn">Join Newslatter</button>
+						</form>
+					</div>
+				</div>
+				<!-- /footer subscribe -->
+			</div>
+			<!-- /row -->
+		
+			
+		</div>
+		<!-- /container -->
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+	<script src="{% static 'js/jquery.min.js'%}"></script>
+	<script src="{% static 'js/bootstrap.min.js'%}"></script>
+	<script src="{% static 'js/slick.min.js'%}"></script>
+	<script src="{% static 'js/nouislider.min.js'%}"></script>
+	<script src="{% static 'js/jquery.zoom.min.js'%}"></script>
+	<script src="{% static 'js/main.js'%}"></script>
+
+</body>
+
+</html>
